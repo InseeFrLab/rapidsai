@@ -9,6 +9,8 @@ ARG HADOOP_AWS_URL="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws"
 ARG HIVE_URL="https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}"
 ARG SPARK_BUILD="spark-${SPARK_VERSION}-bin-hadoop-${HADOOP_VERSION}-hive-${HIVE_VERSION}"
 ARG S3_BUCKET="https://minio.lab.sspcloud.fr/projet-onyxia/spark-build"
+ARG RAPIDS_URL="https://repo1.maven.org/maven2/com/nvidia/rapids-4-spark_2.12/21.10.0/rapids-4-spark_2.12-21.10.0.jar"
+ARG CUDA_URL="https://repo1.maven.org/maven2/ai/rapids/cudf/21.10.0/cudf-21.10.0-cuda11.jar"
 
 ENV HADOOP_HOME="/opt/hadoop"
 ENV SPARK_HOME="/opt/spark"
@@ -62,6 +64,10 @@ RUN cd /tmp \
     && wget https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar \
     && mv jline-2.14.6.jar ${HIVE_HOME}/lib/ \
     && rm ${HIVE_HOME}/lib/jline-2.12.jar \
+    && wget ${RAPIDS_URL} \
+    && mv rapids-4-spark_2.12-21.10.0.jar ${SPARK_HOME}}/jars/ \
+    && wget ${CUDA_URL} \
+    && mv cudf-21.10.0-cuda11.jar ${SPARK_HOME}}/jars/ \
     && rm -rf /tmp/*
 
 RUN pip install s3fs hvac boto3 pyarrow pymongo dvc[s3] jupyterlab-git
