@@ -65,7 +65,7 @@ RUN cd /tmp \
     && mv jline-2.14.6.jar ${HIVE_HOME}/lib/ \
     && rm ${HIVE_HOME}/lib/jline-2.12.jar \
     && wget ${RAPIDS_URL} \
-    && mv rapids-4-spark_2.12-21.10.0.jar ${SPARK_HOME}}/jars/ \
+    && mv rapids-4-spark_2.12-21.10.0.jar ${SPARK_HOME}/jars/ \
     && wget ${CUDA_URL} \
     && mv cudf-21.10.0-cuda11.jar ${SPARK_HOME}/jars/ \
     && rm -rf /tmp/*
