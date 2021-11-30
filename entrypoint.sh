@@ -131,4 +131,4 @@ esac
 
 env
 # Execute the container CMD under tini for better hygiene
-exec /usr/bin/tini -g -- "${CMD[@]}"
+exec /opt/conda/bin/tini -g -- "${CMD[@]}"
