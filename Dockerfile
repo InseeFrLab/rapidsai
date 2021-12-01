@@ -21,7 +21,7 @@ RUN wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-p
     rm packages-microsoft-prod.deb
 
 RUN apt-get -y update && \
-    apt-get install --no-install-recommends -y msopenjdk-17 \
+    apt-get install --no-install-recommends -y msopenjdk-11 \
                                                ca-certificates-java \
                                                vim \
                                                jq \
