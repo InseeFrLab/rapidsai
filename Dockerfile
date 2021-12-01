@@ -16,8 +16,12 @@ ENV HADOOP_HOME="/opt/hadoop"
 ENV SPARK_HOME="/opt/spark"
 ENV HIVE_HOME="/opt/hive"
 
+RUN wget https://packages.microsoft.com/config/ubuntu/${ubuntu_release}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    rm packages-microsoft-prod.deb
+
 RUN apt-get -y update && \
-    apt-get install --no-install-recommends -y openjdk-11-jre-headless \
+    apt-get install --no-install-recommends -y msopenjdk-17 \
                                                ca-certificates-java \
                                                vim \
                                                jq \
@@ -78,7 +82,7 @@ RUN chmod +x /opt/entrypoint.sh $SPARK_HOME/conf/spark-env.sh
 
 ENV PYTHONPATH="$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.2-src.zip"
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M
-ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk-amd64"
+ENV JAVA_HOME "/usr/lib/jvm/msopenjdk-11-amd64"
 ENV HADOOP_OPTIONAL_TOOLS "hadoop-aws"
 ENV PATH="${JAVA_HOME}/bin:${SPARK_HOME}/bin:${HADOOP_HOME}/bin:${PATH}"
 
